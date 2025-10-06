@@ -1,2 +1,92 @@
 # vibecoding
 This is for the chill ppl gc
+coding the entirety of minecraft in Devscript
+
+
+/<<system->tell[using<charger-x>lan->eng.]
+/<<startup>>[prog->active]
+/<<func>>->(apply)(name:*display*)
+/<savefile->(name:*game menu*)
+/<link
+	->source{file->type:*minecraftsingleplayer*}
+		->(!input_type:(button->display->*what is this game?*)
+			->!output_type:(link:source->*singleplayer*)
+					system->[active])
+/<link
+	->source{file->type:*minecraftmultiplayer*}
+		->(!input_type:(button->display->*start game*)
+			->!output_type:(link:source->*multiplayer*)
+					system->[active])
+/<link
+	->source{file->type:*settings*}
+		->(!input_type:(button->display->*settings*)
+			->!output_type:(link:source->*settings*)
+			 		system->[active])
+/<link
+	->source{file->type:(manual:leavescreen)}
+		->(!input_type:(button->display->*exit*)
+			->!output_type:(manual:exitscreen)
+					system->[active]
+
+/<background->
+	(type->picture)
+		->source(image:display-type->pixel)
+
+				
+/<<func>>->(ending)
+/<<system->tell[using<backend-x>lan->eng.]
+/<<func>>->(apply)(name:*display*)
+14/<button
+	->(customize:{color:"grey"(shapetype(corners:perpendicular))}
+                 animation->
+                     if->cursor(on:button)
+                     	<change color:dark grey>->add(sides:bold(color:light grey(if->cursor(on:button)change color:grey))
+                     		add->music(type:sound(duration:3 sec)file->import{*minecraft button sound*}
+                                         system->[active]
+/<<background>>
+	->(customize:{animation add vr->import{*menuscreen.vr*}
+                   add->(menuscreen: background)
+                        put->(perspective)                        
+                             if->openfile{*game menu*}
+                                  import->(menuscreen.vr)
+					animate{*menuscreen.vr*}
+						apply->(menuscreen.vr->game menu)
+					->add->music(type:melody(duration:30 sec(looped)
+                                    ->file->import{*music.minecraft game menu music*}
+                                               system->[active]
+
+/<<func>>->(ending)
+/<<system->tell[using<charger-x>lan->eng.]
+/<<func>>->(apply)(name:*display*)
+/<savefile->(name:*single player world*)
+/<<background>>
+	->(type->picture)
+		->source(image:display-type->pixel)
+			import(picture:*minecraft loading screen*)
+				->add->music(type:melody(duration:30 sec(looped)
+                                    ->file->import{*music.melody loading music*}
+                                               system->[active]
+/<<condition>>->if
+	->file{*minecraftsingleplayer*}activated
+		import{*simulation*}
+			type->sandbox(type:generate)
+				
+/<<variable>>
+	->add(variable(name:minecraftdirtblock)
+		-type:code(importtype:^java^)
+			file{*minecraftdirtblock*}->add(variable(name:minecraftdirtblock)
+				-type:code(importtype:^java^)
+					file{*minecraftoaklogblock*}
+					->add(variable(name:minecraftoakplankblock)
+						->type:code(importtype:^java^)
+						file{*minecraftoakplankblock*}
+					->add(variable(name:minecraftdgrassblock)
+						->type:code(importtype:^java^)
+						file{*minecraftgrassblock*}
+					->add(variable(name:minecraftstoneblock)
+						->type:code(importtype:^java^)
+					        file
+				
+				
+/<<func>>->(ending)
+
